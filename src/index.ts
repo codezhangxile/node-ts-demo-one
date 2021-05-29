@@ -1,15 +1,13 @@
-import express from 'express';
+// import express from 'express';
+import 'reflect-metadata'
+// this shim is required
+import { createExpressServer } from 'routing-controllers';
+import { UserController } from './controller/userController';
 
-//创建服务器程序
-const app = express();
+// creates express app, registers all controller routes and returns you express app instance
+const app = createExpressServer({
+    controllers: [UserController], // we specify controllers we want to use
+});
 
-app.get('/test',(req,res)=>{
-    console.log('test request~');
-    res.send({
-        code:200,
-        msg:null,
-        data:122
-    });
-})
-
-app.listen(8888);
+// run express application on port 3000
+app.listen(3000);
