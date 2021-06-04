@@ -1,9 +1,18 @@
 import { Controller, Param, Body, Get, Post, Put, Delete } from 'routing-controllers';
+import User from "../entity/user";
+import { ResultMap } from "../utils/resultMap";
 @Controller()
 export  class UserController{
     @Get('/users')
-    getAll() {
-        return 'This action returns all users';
+    async getAll() {
+        let users : Array<User> =[]
+        users = await User.findAll({raw:true})
+        if(users.length < 1){
+            return  ResultMap.error(users,'暂无员工');
+
+        }else{
+            return  ResultMap.ok(users,'查询成功');
+        }
     }
 
     @Get('/users/:id')
@@ -20,7 +29,6 @@ export  class UserController{
     put(@Param('id') id: number, @Body() user: any) {
         return 'Updating a user...';
     }
-
     @Delete('/users/:id')
     remove(@Param('id') id: number) {
         return 'Removing user...';
