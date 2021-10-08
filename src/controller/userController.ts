@@ -7,6 +7,7 @@ export  class UserController{
     async getAll() {
         let users : Array<User> =[]
         users = await User.findAll({raw:true})
+      
         if(users.length < 1){
             return  ResultMap.error(users,'暂无员工');
 
@@ -19,7 +20,6 @@ export  class UserController{
     getOne(@Param('id') id: number) {
         return 'This action returns user #' + id;
     }
-
     @Post('/users')
     post(@Body() user: any) {
         return 'Saving user...';
