@@ -9,6 +9,7 @@ const app = createExpressServer({
     cors:true,
     controllers: [UserController], // we specify controllers we want to use
 });
+// register express app
 
 // run express application on port 3000
 app.listen(5000);
